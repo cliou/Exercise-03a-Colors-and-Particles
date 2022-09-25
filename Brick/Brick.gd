@@ -6,9 +6,23 @@ var dying = false
 
 func _ready():
 	position = new_position
+	if score >= 100:
+		$ColorRect.color = Color8(224,49,49)
+	elif score >= 90:
+		$ColorRect.color = Color8(255,146,43)
+	if score >= 80:
+		$ColorRect.color = Color8(255,212,59)
+	elif score >= 70:
+		$ColorRect.color = Color8(148,216,45)
+	if score >= 60:
+		$ColorRect.color = Color8(32,139,230)
+	elif score >= 50:
+		$ColorRect.color = Color8(132,94,247)
+	if score >= 40:
+		$ColorRect.color = Color8(190,75,219)
 
 func _physics_process(_delta):
-	if dying:
+	if dying and not $Confetti.emitting:
 		queue_free()
 
 func hit():
@@ -20,3 +34,4 @@ func die():
 	$ColorRect.hide()
 	Global.update_score(score)
 	get_parent().check_level()
+	$Confetti.emitting = true
